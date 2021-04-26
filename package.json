@@ -1,0 +1,19 @@
+{
+  "name": "1boon-tap",
+  "version": "1.0.0",
+  "description": "## 준비",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjvm0877/1boon-tab.git"
+  },
+  "author": "kim_Jae_hyun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tjvm0877/1boon-tab/issues"
+  },
+  "homepage": "https://github.com/tjvm0877/1boon-tab#readme"
+}
