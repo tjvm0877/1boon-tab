@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tjvm0877/1boon-tab/issues"
   },
-  "homepage": "https://github.com/tjvm0877/1boon-tab#readme"
+  "homepage": "https://github.com/tjvm0877/1boon-tab#readme",
+  "devDependencies": {
+    "prettier": "2.2.1"
+  }
 }
