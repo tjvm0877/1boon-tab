@@ -7,6 +7,9 @@ const $showMoreBtn = document.getElementById('showMoreBtn');
 // 더보기 활성화 여부
 let checkShowMore = false;
 
+// tab id가져오기
+let tabId = document.querySelectorAll('.nav>li');
+
 //현재 보고있는 탭
 let selecedTab = document.querySelector('.active');
 
@@ -60,12 +63,45 @@ function makeContents(data, checkShowMore) {
     }
 }
 
-// 더보기 버튼 이벤트 등록, 보여주고 더보기 버튼은 숨김처리
+// 더보기가 활성화된 경우 버튼 숨김
+function btnDisplay() {
+    if (checkShowMore === true) {
+        $showMoreBtn.style.display = 'none';
+    } else if (checkShowMore === false) {
+        $showMoreBtn.style.display = 'inline-block';
+    }
+}
+
+// 더보기 버튼 이벤트 등록
 $showMoreBtn.addEventListener('click', function () {
-    checkShowMore = true;
     getJSon();
-    $showMoreBtn.style.display = 'none';
+    checkShowMore = true;
+    btnDisplay();
 });
 
-//첫화면
+function addtabEvent() {
+    for (let i = 0; i < tabId.length; i++) {
+        tabId[i].addEventListener('click', function () {
+            // 기존 탭 active 제거
+            selecedTab.classList.remove('active');
+
+            // 선택한 탭 active 추가
+            tabId[i].classList.add('active');
+
+            // selectedTab 선택한탭으로 변경
+            selecedTab = tabId[i];
+
+            // 기존 컨텐츠 삭제
+            while ($list.hasChildNodes()) {
+                $list.removeChild($list.firstChild);
+            }
+            checkShowMore = false;
+            // 해당 탭에 맞는 컨텐츠 추가
+            getJSon();
+            btnDisplay();
+        });
+    }
+}
+
 getJSon();
+addtabEvent();
