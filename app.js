@@ -1,4 +1,4 @@
-// 화면에 띄워준 list를 가져오기
+// 화면에 띄워준 contents를 가져오기
 const $contents = document.getElementById('contents');
 
 // 더보기 버튼 showMoreBtn 가져오기
@@ -63,7 +63,7 @@ function makeContents(data, check) {
     }
 }
 
-// 더보기가 활성화된 경우 버튼 숨김
+// 더보기 활성화/비활성화
 function btnDisplay(check) {
     if (check === true) {
         $showMoreBtn.style.display = 'inline-block';
@@ -100,15 +100,22 @@ function changeTab(event) {
         $contents.removeChild(contents[i]);
     }
 
-    // // 해당 탭에 맞는 컨텐츠 추가
+    // // 해당 탭에 맞는 컨텐츠를 화면에 추가
+    makeView(false, true);
+}
+
+// 컨텐츠를 화면에 출력
+function makeView(more, check) {
     btnDisplay(false);
     loadingDisplay(true);
+
     setTimeout(function () {
-        getJSon(false);
-        btnDisplay(true);
+        getJSon(more);
+        btnDisplay(check);
         loadingDisplay(false);
     }, 1000);
 }
+
 // 탭 이벤트 등록
 for (let i = 0; i < tabId.length; i++) {
     tabId[i].addEventListener('click', changeTab);
@@ -116,19 +123,8 @@ for (let i = 0; i < tabId.length; i++) {
 
 // 더보기 버튼 이벤트 등록
 $showMoreBtn.addEventListener('click', function () {
-    btnDisplay(false);
-    loadingDisplay(true);
-    setTimeout(function () {
-        loadingDisplay(false);
-        getJSon(true);
-    }, 1000);
+    makeView(true, false);
 });
 
 //첫화면 로딩
-btnDisplay(false);
-loadingDisplay(true);
-setTimeout(function () {
-    getJSon(false);
-    btnDisplay(true);
-    loadingDisplay(false);
-}, 1000);
+makeView(false, true);
