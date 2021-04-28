@@ -5,13 +5,13 @@ const $contents = document.getElementById('contents');
 const $showMoreBtn = document.getElementById('showMoreBtn');
 
 // tab id가져오기
-let tabId = document.querySelectorAll('.nav>li');
+const tabId = document.querySelectorAll('.nav>li');
 
 //현재 보고있는 탭
 let selecedTab = document.querySelector('.active');
 
 //로딩 id 가져오기
-let loading = document.getElementById('loading');
+const loading = document.getElementById('loading');
 
 // 현재 선택한 tab의 API(JSON)정보를 가져오기
 function getJSon(check) {
