@@ -35,6 +35,14 @@
       #list strong {
         margin-top: 2px;
       }
+      @keyframes spinIt {
+        0%   { transform: rotate(0deg); }
+        100% { transform: rotate(359deg); }
+      }
+      .spin .glyphicon-refresh { 
+        animation: spinIt 1.5s infinite linear;
+        font-size: 2em;
+      }
     </style>
   </head>
   <body>
@@ -54,9 +62,10 @@
         <!-- 제목, 링크, 이미지, CP 를 표시해주세요  -->
 
         <!-- 로딩마크업: 로딩중일때만 표시 -->
-        <div class="text-center spin">
-          <span class="glyphicon glyphicon-refresh"></span> 로딩중
+        <div id = "loading" class="spin text-center">
+          <div class="glyphicon glyphicon-refresh"></div> 로딩중
         </div>
+      
       </div>
 
       <div class="text-center">

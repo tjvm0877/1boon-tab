@@ -4,27 +4,27 @@ const $list = document.getElementById('list');
 // 더보기 버튼 showMoreBtn 가져오기
 const $showMoreBtn = document.getElementById('showMoreBtn');
 
-// 더보기 활성화 여부
-let checkShowMore = false;
-
 // tab id가져오기
 let tabId = document.querySelectorAll('.nav>li');
 
 //현재 보고있는 탭
 let selecedTab = document.querySelector('.active');
 
+//로딩 id 가져오기
+let loading = document.getElementById('loading');
+
 // 현재 선택한 tab의 API(JSON)정보를 가져오기
-function getJSon() {
+function getJSon(check) {
     let jsonName = selecedTab.id;
     fetch(`${jsonName}.json`)
         .then((response) => response.json())
-        .then((data) => makeContents(data, checkShowMore));
+        .then((data) => makeContents(data, check));
 }
 
 // 입력한 json정보를 화면(.list)안에 띄워주기 위한 DOM명령어 처리
-function makeContents(data, checkShowMore) {
+function makeContents(data, check) {
     let count;
-    if (checkShowMore === false) {
+    if (check === false) {
         count = 0;
     } else {
         count = 10;
@@ -64,44 +64,78 @@ function makeContents(data, checkShowMore) {
 }
 
 // 더보기가 활성화된 경우 버튼 숨김
-function btnDisplay() {
-    if (checkShowMore === true) {
-        $showMoreBtn.style.display = 'none';
-    } else if (checkShowMore === false) {
+function btnDisplay(check) {
+    if (check === true) {
         $showMoreBtn.style.display = 'inline-block';
+    } else if (check === false) {
+        $showMoreBtn.style.display = 'none';
     }
+}
+
+// 로딩 활성화/비활성화
+function loadingDisplay(check) {
+    if (check === true) {
+        loading.style.display = 'block';
+    } else if (check === false) {
+        loading.style.display = 'none';
+    }
+}
+
+// tabId[0].addEventListener('click', changeTab);
+// tabId[1].addEventListener('click', changeTab);
+// tabId[2].addEventListener('click', changeTab);
+
+// 탭 전환 함수
+function changeTab(event) {
+    let newSeletedTab = event.path[1];
+
+    // 기존 탭 active 삭제
+    selecedTab.classList.remove('active');
+
+    // 선택한 탭 active 추가
+    newSeletedTab.classList.add('active');
+
+    // selectedTab 선택한탭으로 변경
+    selecedTab = newSeletedTab;
+
+    console.log(document.querySelectorAll('#list>li'));
+
+    // 기존 컨텐츠 삭제
+    let contents = document.querySelectorAll('#list>li');
+    for (let i = 0; i < contents.length; i++) {
+        $list.removeChild(contents[i]);
+    }
+
+    // // 해당 탭에 맞는 컨텐츠 추가
+    btnDisplay(false);
+    loadingDisplay(true);
+    setTimeout(function () {
+        getJSon(false);
+        btnDisplay(true);
+        loadingDisplay(false);
+    }, 1000);
+}
+// 탭 이벤트 등록
+for (let i = 0; i < tabId.length; i++) {
+    tabId[i].addEventListener('click', changeTab);
 }
 
 // 더보기 버튼 이벤트 등록
 $showMoreBtn.addEventListener('click', function () {
-    getJSon();
-    checkShowMore = true;
-    btnDisplay();
+    loadingDisplay(true);
+    setTimeout(function () {
+        loadingDisplay(false);
+        getJSon(true);
+        btnDisplay(false);
+    }, 1000);
 });
 
-function addtabEvent() {
-    for (let i = 0; i < tabId.length; i++) {
-        tabId[i].addEventListener('click', function () {
-            // 기존 탭 active 제거
-            selecedTab.classList.remove('active');
+btnDisplay(false);
+loadingDisplay(true);
+setTimeout(function () {
+    getJSon(false);
+    btnDisplay(true);
+    loadingDisplay(false);
+}, 1000);
 
-            // 선택한 탭 active 추가
-            tabId[i].classList.add('active');
-
-            // selectedTab 선택한탭으로 변경
-            selecedTab = tabId[i];
-
-            // 기존 컨텐츠 삭제
-            while ($list.hasChildNodes()) {
-                $list.removeChild($list.firstChild);
-            }
-            checkShowMore = false;
-            // 해당 탭에 맞는 컨텐츠 추가
-            getJSon();
-            btnDisplay();
-        });
-    }
-}
-
-getJSon();
-addtabEvent();
+// let contents = document.querySelectorAll('li');
