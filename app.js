@@ -1,5 +1,5 @@
 // 화면에 띄워준 list를 가져오기
-const $list = document.getElementById('list');
+const $contents = document.getElementById('contents');
 
 // 더보기 버튼 showMoreBtn 가져오기
 const $showMoreBtn = document.getElementById('showMoreBtn');
@@ -59,7 +59,7 @@ function makeContents(data, check) {
         $a.appendChild($titleSpan);
 
         $li.appendChild($a);
-        $list.appendChild($li);
+        $contents.appendChild($li);
     }
 }
 
@@ -81,10 +81,6 @@ function loadingDisplay(check) {
     }
 }
 
-// tabId[0].addEventListener('click', changeTab);
-// tabId[1].addEventListener('click', changeTab);
-// tabId[2].addEventListener('click', changeTab);
-
 // 탭 전환 함수
 function changeTab(event) {
     let newSeletedTab = event.path[1];
@@ -98,12 +94,10 @@ function changeTab(event) {
     // selectedTab 선택한탭으로 변경
     selecedTab = newSeletedTab;
 
-    console.log(document.querySelectorAll('#list>li'));
-
     // 기존 컨텐츠 삭제
-    let contents = document.querySelectorAll('#list>li');
+    let contents = document.querySelectorAll('#contents>li');
     for (let i = 0; i < contents.length; i++) {
-        $list.removeChild(contents[i]);
+        $contents.removeChild(contents[i]);
     }
 
     // // 해당 탭에 맞는 컨텐츠 추가
@@ -122,14 +116,15 @@ for (let i = 0; i < tabId.length; i++) {
 
 // 더보기 버튼 이벤트 등록
 $showMoreBtn.addEventListener('click', function () {
+    btnDisplay(false);
     loadingDisplay(true);
     setTimeout(function () {
         loadingDisplay(false);
         getJSon(true);
-        btnDisplay(false);
     }, 1000);
 });
 
+//첫화면 로딩
 btnDisplay(false);
 loadingDisplay(true);
 setTimeout(function () {
@@ -137,5 +132,3 @@ setTimeout(function () {
     btnDisplay(true);
     loadingDisplay(false);
 }, 1000);
-
-// let contents = document.querySelectorAll('li');

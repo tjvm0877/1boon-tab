@@ -17,23 +17,26 @@
         margin: 10px;
         padding: 10px;
       }
-      #list>li {
+      #contents>li {
         list-style: none; display: inline-block; width: 228px; height: 200px; padding: 10px;
       }
-      #list a {
+      #contents a {
         cursor: pointer; display: block; position: relative;
       }
-      #list span {
+      #contents span {
         display: block; overflow: hidden; position: relative; height: 100px;
 
-      }#list .imageSpan {
+      }#contents .imageSpan {
         display: block; overflow: hidden; position: relative; height: 180px;
       }
-      #list img {
+      #contents img {
         display: block; width: 100%; height: 100%; object-fit: fill;
       }
-      #list strong {
+      #contents strong {
         margin-top: 2px;
+      }
+      #loading {
+        margin-top: 20px;
       }
       @keyframes spinIt {
         0%   { transform: rotate(0deg); }
@@ -60,12 +63,12 @@
 
       <div id="list">
         <!-- 제목, 링크, 이미지, CP 를 표시해주세요  -->
+        <div id="contents"></div>
 
         <!-- 로딩마크업: 로딩중일때만 표시 -->
         <div id = "loading" class="spin text-center">
           <div class="glyphicon glyphicon-refresh"></div> 로딩중
         </div>
-      
       </div>
 
       <div class="text-center">
